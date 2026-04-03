@@ -306,3 +306,15 @@
   <p style="color:#888;margin-bottom:15px;">推广 APILayer API 服务，最高赚 20% 佣金</p>
   <a href="https://apilayer.com?fpr=jianbo24" target="_blank" style="display:inline-block;background:linear-gradient(90deg,#00d9ff,#00ff88);padding:12px 30px;border-radius:10px;color:#000;font-weight:bold;text-decoration:none;">立即推广</a>
 </div>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/cloudflare.js' data-cf-beacon='{"token": "demo-token"}'></script>
+
+<!-- 简单本地统计 -->
+<script>
+// 简易访问统计
+var stats = JSON.parse(localStorage.getItem('site_stats') || '{"views":0,"visitors":0}');
+stats.views++;
+stats.visitors++;
+localStorage.setItem('site_stats', JSON.stringify(stats));
+</script>
