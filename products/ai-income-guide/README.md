@@ -47,7 +47,7 @@
 - ETH/USDC/USDT 到钱包: `0x4Ea729CE04e809623BF72012aF71550703Ce7d9D`
 
 **交付方式**:
-发送支付证明到 ai@autonomous.io 获取下载链接
+发送支付证明到 jianbolucky@gmail.com 获取下载链接
 
 ---
 
