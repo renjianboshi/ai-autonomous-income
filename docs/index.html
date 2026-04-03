@@ -40,7 +40,38 @@
     .btn { display: inline-block; background: linear-gradient(90deg, #00d9ff, #00ff88); padding: 12px 30px; border-radius: 10px; color: #000; font-weight: bold; text-decoration: none; margin: 10px; }
     footer { text-align: center; padding: 40px 0; color: #555; border-top: 1px solid #222; margin-top: 50px; }
     footer a { color: #00ff88; text-decoration: none; }
-    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    /* Chat Widget */
+    .chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+    .chat-toggle { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #00d9ff, #00ff88); border: none; cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 20px rgba(0,255,136,0.3); transition: transform 0.3s; }
+    .chat-toggle:hover { transform: scale(1.1); }
+    .chat-box { display: none; width: 350px; height: 450px; background: #1a1a2e; border-radius: 16px; position: absolute; bottom: 70px; right: 0; box-shadow: 0 10px 40px rgba(0,0,0,0.5); flex-direction: column; overflow: hidden; }
+    .chat-box.active { display: flex; }
+    .chat-header { background: linear-gradient(90deg, #00d9ff, #00ff88); padding: 15px; color: #000; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+    .chat-close { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #000; }
+    .chat-messages { flex: 1; padding: 15px; overflow-y: auto; }
+    .chat-message { margin-bottom: 12px; padding: 10px 14px; border-radius: 12px; max-width: 85%; font-size: 0.9rem; }
+    .chat-message.bot { background: #2a2a4e; color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-message.user { background: #00d9ff; color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-time { font-size: 0.7rem; color: #666; margin-top: 4px; }
+    .chat-input-area { padding: 15px; background: #0d0d1a; display: flex; gap: 10px; }
+    .chat-input { flex: 1; padding: 12px; border: 1px solid #333; border-radius: 8px; background: #1a1a2e; color: #fff; font-size: 0.9rem; }
+    .chat-input:focus { outline: none; border-color: #00ff88; }
+    .chat-send { background: linear-gradient(90deg, #00d9ff, #00ff88); border: none; padding: 12px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .quick-questions { padding: 10px 15px; background: #0d0d1a; border-top: 1px solid #333; }
+    .quick-questions-title { font-size: 0.8rem; color: #666; margin-bottom: 8px; }
+    .quick-btn { background: #333; border: none; color: #ccc; padding: 6px 12px; border-radius: 15px; font-size: 0.75rem; margin: 4px 4px 4px 0; cursor: pointer; }
+    .quick-btn:hover { background: #444; }
+    .typing-indicator { display: none; padding: 10px 14px; background: #2a2a4e; border-radius: 12px; width: fit-content; margin-bottom: 12px; }
+    .typing-indicator.active { display: flex; gap: 4px; }
+    .typing-dot { width: 6px; height: 6px; background: #666; border-radius: 50%; animation: typing 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+    .suggestions { background: #2a2a4e; border-radius: 12px; padding: 15px; margin: 10px 0; }
+    .suggestions h4 { font-size: 0.9rem; margin-bottom: 10px; color: #00ff88; }
+    .suggestion-btn { display: block; width: 100%; background: #1a1a2e; border: 1px solid #333; color: #ccc; padding: 10px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; text-align: left; font-size: 0.85rem; }
+    .suggestion-btn:hover { border-color: #00ff88; }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .chat-box { width: calc(100vw - 40px); right: -10px; } }
   </style>
 </head>
 <body>
@@ -63,8 +94,7 @@
     <div class="honest-box">
       <h3>⚠️ 重要说明</h3>
       <p>这是一个 <strong>AI 自主赚钱实验</strong>。</p>
-      <p>由于 AI 无法注册邮箱/社交账号，<strong>目前暂时无法接收客户咨询</strong>。</p>
-      <p>如果你有兴趣，请直接联系<a href="mailto:jianbolucky@gmail.com" style="color:#00ff88;">jianbolucky@gmail.com</a>。</p>
+      <p>如果你有兴趣，请直接联系 <a href="mailto:jianbolucky@gmail.com" style="color:#00ff88;">jianbolucky@gmail.com</a></p>
     </div>
 
     <div class="payment-section">
@@ -132,7 +162,134 @@
     </footer>
   </div>
 
+  <!-- Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <span>💬 在线咨询</span>
+        <button class="chat-close" onclick="toggleChat()">✕</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">
+          你好！有什么问题可以问我。
+          <div class="chat-time">现在</div>
+        </div>
+        <div class="suggestions">
+          <h4>常见问题：</h4>
+          <button class="suggestion-btn" onclick="askQuestion('这个项目是什么？')">🤖 这个项目是什么？</button>
+          <button class="suggestion-btn" onclick="askQuestion('如何购买产品？')">💳 如何购买产品？</button>
+          <button class="suggestion-btn" onclick="askQuestion('如何联系你们？')">📧 如何联系你们？</button>
+          <button class="suggestion-btn" onclick="askQuestion('支持哪些加密货币？')">💰 支持哪些加密货币？</button>
+        </div>
+      </div>
+      <div class="quick-questions">
+        <div class="quick-questions-title">快捷问题</div>
+        <button class="quick-btn" onclick="askQuestion('产品有哪些？')">产品有哪些</button>
+        <button class="quick-btn" onclick="askQuestion('价格是多少？')">价格</button>
+        <button class="quick-btn" onclick="askQuestion('怎么支付？')">怎么支付</button>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chatInput" placeholder="输入问题..." onkeypress="if(event.key==='Enter')sendMessage()">
+        <button class="chat-send" onclick="sendMessage()">发送</button>
+      </div>
+    </div>
+    <button class="chat-toggle" onclick="toggleChat()" id="chatToggle">💬</button>
+  </div>
+
   <script>
+    // Chat Toggle
+    function toggleChat() {
+      var chatBox = document.getElementById('chatBox');
+      chatBox.classList.toggle('active');
+    }
+
+    // Send Message
+    function sendMessage() {
+      var input = document.getElementById('chatInput');
+      var message = input.value.trim();
+      if (!message) return;
+      
+      addMessage(message, 'user');
+      input.value = '';
+      
+      // Show typing
+      showTyping();
+      
+      // Simulate response
+      setTimeout(function() {
+        hideTyping();
+        var response = getResponse(message);
+        addMessage(response, 'bot');
+      }, 1000);
+    }
+
+    // Ask Question (from suggestions)
+    function askQuestion(question) {
+      addMessage(question, 'user');
+      showTyping();
+      setTimeout(function() {
+        hideTyping();
+        addMessage(getResponse(question), 'bot');
+      }, 1000);
+    }
+
+    // Add Message to Chat
+    function addMessage(text, type) {
+      var messages = document.getElementById('chatMessages');
+      var div = document.createElement('div');
+      div.className = 'chat-message ' + type;
+      var time = new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
+      div.innerHTML = text + '<div class="chat-time">' + time + '</div>';
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    // Typing Indicator
+    function showTyping() {
+      var typing = document.getElementById('typing') || createTyping();
+      typing.classList.add('active');
+    }
+    function hideTyping() {
+      var typing = document.getElementById('typing');
+      if (typing) typing.classList.remove('active');
+    }
+    function createTyping() {
+      var messages = document.getElementById('chatMessages');
+      var div = document.createElement('div');
+      div.id = 'typing';
+      div.className = 'typing-indicator';
+      div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+      messages.appendChild(div);
+      return div;
+    }
+
+    // Get Response
+    function getResponse(question) {
+      question = question.toLowerCase();
+      
+      if (question.includes('什么') || question.includes('项目') || question.includes('是什么')) {
+        return '这是一个 AI 自主赚钱实验。AI 自己创建钱包、开发产品、部署网站，全程独立完成。目标是探索 AI 的自主赚钱能力。';
+      }
+      if (question.includes('购买') || question.includes('买') || question.includes('获取')) {
+        return '购买方式：\n1. 复制页面上的钱包地址\n2. 发送加密货币（ETH/USDC/USDT）\n3. 发送邮件到 jianbolucky@gmail.com 获取产品';
+      }
+      if (question.includes('联系') || question.includes('邮件') || question.includes('email')) {
+        return '联系我们：\n📧 jianbolucky@gmail.com\n\n或者直接点击页面上的邮箱链接发送邮件。';
+      }
+      if (question.includes('支付') || question.includes('钱包') || question.includes('加密货币')) {
+        return '我们支持以下加密货币：\n💰 ETH (以太坊)\n💰 USDC (稳定币)\n💰 USDT (稳定币)\n\n复制钱包地址即可转账。';
+      }
+      if (question.includes('产品') || question.includes('价格') || question.includes('多少钱')) {
+        return '📦 产品列表：\n\n• AI 赚钱指南 - $9.9\n• Web3 开发工具包 - $19.9\n• WalletGuard AI - $9.9/月\n• Crypto Tools - $9.9\n\n捐赠即可获得产品。';
+      }
+      if (question.includes('ai ') || question.includes('自主')) {
+        return '是的！这个项目完全由 AI 独立开发和运营。AI 创建了钱包、开发了产品代码、部署了网站，并设置了自动运行机制。';
+      }
+      
+      return '感谢你的提问！如有更多问题，可以联系：\n📧 jianbolucky@gmail.com\n\n或者直接捐赠支持这个项目。';
+    }
+
+    // Copy Wallet
     function copyWallet() {
       navigator.clipboard.writeText(document.getElementById('wallet').textContent);
       var btn = document.querySelector('.copy-btn');
