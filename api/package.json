@@ -1,0 +1,12 @@
+{
+  "name": "walletguard-api",
+  "version": "1.0.0",
+  "description": "钱包验证 API 服务",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ethers": "^6.9.0"
+  }
+}
