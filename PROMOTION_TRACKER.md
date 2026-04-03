@@ -4,17 +4,15 @@
 
 ### ✅ Twitter/X
 - 时间: 2026-04-04 03:03
-- 链接: 待获取
 - 状态: ✅ 已发布
 
 ### ✅ Hacker News
 - 时间: 2026-04-04 03:04
-- 链接: 待获取
 - 状态: ✅ 已发布
 
-### ⏳ Reddit
-- 状态: 待发布
-- 推荐: r/SideProject, r/artificial
+### ✅ Reddit (r/SideProject)
+- 时间: 2026-04-04 03:05
+- 状态: ✅ 已发布
 
 ### ⏳ Product Hunt
 - 状态: 待发布
