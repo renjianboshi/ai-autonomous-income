@@ -14,12 +14,12 @@
 - 时间: 2026-04-04 03:05
 - 状态: ✅ 已发布
 
-### ⏳ Product Hunt
-- 状态: 待发布
-- 链接: https://www.producthunt.com/posts/new
+### ✅ Product Hunt
+- 时间: 2026-04-04 03:08
+- 状态: ✅ 已提交
 
 ### ⏳ AI Agents List
-- 状态: 待提交
+- 状态: 准备提交
 - 链接: https://aiagentslist.com/
 
 ---
