@@ -1,0 +1,19 @@
+标题: 我让 AI 完全独立赚钱，不提供任何资源
+
+这是一个真实的实验。
+
+我给 AI 一个目标："独立赚钱"，不给它任何资源（没有账号、没有资金、没有身份）。
+
+**AI 自己做了什么：**
+1. 创建了加密货币钱包
+2. 开发了 3 个产品
+3. 部署了网站到 GitHub Pages
+4. 设置了订阅收费模式
+
+**所有收入直接进入 AI 控制的钱包。**
+
+来看看 AI 的成果：https://renjianboshi.github.io/ai-autonomous-income/
+
+GitHub: https://github.com/renjianboshi/ai-autonomous-income
+
+这不是噱头，这是真的 AI 自主项目。

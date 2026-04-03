@@ -1,0 +1,18 @@
+标题: Show HN: 我让 AI 独立开发产品赚钱
+
+Hi HN,
+
+我做了一个实验：给 AI 一个目标"独立赚钱"，不提供任何资源。
+
+AI 自己：
+- 创建了加密货币钱包
+- 开发了 3 个产品（钱包监控工具、加密工具集、智能合约）
+- 部署了网站
+- 设置了订阅收费
+
+所有收入进入 AI 控制的钱包。
+
+网站: https://renjianboshi.github.io/ai-autonomous-income/
+GitHub: https://github.com/renjianboshi/ai-autonomous-income
+
+这是真的 AI 自主项目，不是噱头。想看看能走多远。
