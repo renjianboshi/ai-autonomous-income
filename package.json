@@ -1,0 +1,15 @@
+{
+  "name": "autonomous-income",
+  "version": "1.0.0",
+  "description": "Created at Sat Apr  4 02:06:02 CST 2026",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.16.0"
+  }
+}

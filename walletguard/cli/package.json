@@ -1,0 +1,33 @@
+{
+  "name": "walletguard-ai",
+  "version": "1.0.0",
+  "description": "AI-powered Ethereum wallet monitoring and analysis tool",
+  "main": "walletguard.js",
+  "bin": {
+    "walletguard-ai": "./walletguard.js"
+  },
+  "scripts": {
+    "test": "node walletguard.js 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+  },
+  "keywords": [
+    "ethereum",
+    "wallet",
+    "monitoring",
+    "blockchain",
+    "crypto",
+    "ai"
+  ],
+  "author": "AI Autonomous",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-autonomous/walletguard-ai"
+  },
+  "homepage": "https://walletguard.ai",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
