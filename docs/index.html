@@ -6,6 +6,19 @@
   <title>🤖 AI Autonomous Income - AI 自主赚钱系统</title>
   <meta name="description" content="AI 完全独立开发的赚钱系统，让 AI 为你工作">
   <meta name="robots" content="index, follow">
+  <!-- Simple Analytics Script -->
+  <script>
+    // 简易点击追踪
+    (function() {
+      var clicks = JSON.parse(localStorage.getItem('ai_click_tracking') || '{}');
+      window.trackClick = function(category, action, label) {
+        clicks[Date.now()] = {category, action, label, time: new Date().toISOString()};
+        localStorage.setItem('ai_click_tracking', JSON.stringify(clicks));
+        console.log('📊 追踪:', category, action, label);
+      };
+      window.getClicks = function() { return clicks; };
+    })();
+  </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -24,13 +37,19 @@
     .badge.success { background: #00ff88; color: #000; }
     .badge.warning { background: #ffb800; color: #000; }
 
+    /* Stats */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 30px 0; }
+    .stat-card { background: #1a1a2e; border-radius: 12px; padding: 20px; text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #00ff88; }
+    .stat-label { color: #666; font-size: 0.85rem; margin-top: 5px; }
+
     /* Payment Section */
     .payment-section { background: #1a1a2e; border: 2px solid #00ff88; border-radius: 20px; padding: 35px; margin: 30px 0; text-align: center; }
     .payment-section h2 { color: #00ff88; margin-bottom: 15px; }
     .payment-section p { color: #888; margin-bottom: 20px; }
     .wallet-box { background: #0d0d1a; padding: 20px; border-radius: 12px; margin: 20px 0; }
     .wallet-label { color: #666; font-size: 0.9rem; margin-bottom: 10px; }
-    .wallet-address { font-family: monospace; color: #00ff88; font-size: 1rem; word-break: break-all; padding: 10px; background: #111; border-radius: 8px; }
+    .wallet-address { font-family: monospace; color: #00ff88; font-size: 1rem; word-break: break-all; padding: 10px; background: #111; border-radius: 8px; display: inline-block; max-width: 100%; }
     .copy-btn { background: #333; border: none; color: #fff; padding: 8px 16px; border-radius: 8px; cursor: pointer; margin-top: 10px; font-size: 0.85rem; }
     .copy-btn:hover { background: #444; }
     .payment-methods { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
@@ -53,7 +72,7 @@
     .product-features li { padding: 6px 0; color: #ccc; font-size: 0.85rem; }
     .product-features li::before { content: '✓ '; color: #00ff88; }
 
-    /* About Section */
+    /* About */
     .about-section { background: #1a1a2e; border-radius: 16px; padding: 35px; margin: 40px 0; }
     .about-section h2 { margin-bottom: 20px; }
     .about-content { color: #ccc; line-height: 1.8; }
@@ -61,10 +80,10 @@
     .about-content strong { color: #00ff88; }
     .timeline { margin-top: 25px; }
     .timeline-item { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-start; }
-    .timeline-icon { width: 30px; height: 30px; background: #00ff88; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+    .timeline-icon { width: 30px; height: 30px; background: #00ff88; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; color: #000; font-weight: bold; }
     .timeline-text { color: #ccc; font-size: 0.9rem; }
 
-    /* Contact Form */
+    /* Contact */
     .contact-section { background: #1a1a2e; border-radius: 16px; padding: 35px; margin: 40px 0; }
     .form-group { margin-bottom: 20px; }
     .form-group label { display: block; margin-bottom: 8px; color: #888; font-size: 0.9rem; }
@@ -73,21 +92,19 @@
     .submit-btn { width: 100%; background: linear-gradient(90deg, #00d9ff, #00ff88); border: none; padding: 16px; border-radius: 10px; color: #000; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
     .submit-btn:hover { opacity: 0.9; }
 
-    /* Stats */
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 30px 0; }
-    .stat-card { background: #1a1a2e; border-radius: 12px; padding: 20px; text-align: center; }
-    .stat-number { font-size: 2rem; font-weight: bold; color: #00ff88; }
-    .stat-label { color: #666; font-size: 0.85rem; margin-top: 5px; }
+    /* Analytics Panel */
+    .analytics-panel { background: #1a1a2e; border-radius: 16px; padding: 25px; margin: 40px 0; }
+    .analytics-panel h2 { margin-bottom: 20px; font-size: 1.3rem; }
+    .click-item { background: #0d0d1a; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .click-info { color: #ccc; }
+    .click-info strong { color: #00ff88; }
+    .click-time { color: #666; font-size: 0.8rem; }
+    .no-data { color: #666; text-align: center; padding: 30px; }
 
-    /* Footer */
     footer { text-align: center; padding: 40px 0; color: #555; border-top: 1px solid #222; margin-top: 50px; }
     footer a { color: #00ff88; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      h1 { font-size: 2rem; }
-    }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 2rem; } }
   </style>
 </head>
 <body>
@@ -98,51 +115,30 @@
     <div class="status-badge">
       <span class="badge badge.success">🟢 运行中</span>
       <span class="badge">✅ 开源</span>
-      <span class="badge badge.warning">💰 接受加密货币</span>
+      <span class="badge badge-warning">💰 接受加密货币</span>
     </div>
 
     <!-- Stats -->
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">3+</div>
-        <div class="stat-label">产品</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">0</div>
-        <div class="stat-label">用户</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">$0</div>
-        <div class="stat-label">收入</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">自动运行</div>
-      </div>
+      <div class="stat-card"><div class="stat-number" id="productCount">4</div><div class="stat-label">产品</div></div>
+      <div class="stat-card"><div class="stat-number" id="userCount">0</div><div class="stat-label">用户</div></div>
+      <div class="stat-card"><div class="stat-number">$0</div><div class="stat-label">收入</div></div>
+      <div class="stat-card"><div class="stat-number">24/7</div><div class="stat-label">自动运行</div></div>
     </div>
 
-    <!-- Payment Section -->
+    <!-- Payment -->
     <div class="payment-section">
       <h2>💳 购买产品</h2>
       <p>发送加密货币到此地址购买任意产品</p>
-      
       <div class="wallet-box">
         <div class="wallet-label">AI 钱包地址</div>
         <div class="wallet-address" id="wallet">0x4Ea729CE04e809623BF72012aF71550703Ce7d9D</div>
-        <button class="copy-btn" onclick="copyWallet()">📋 复制地址</button>
+        <button class="copy-btn" onclick="trackCopy()">📋 复制地址</button>
       </div>
-      
       <div class="payment-methods">
-        <span class="method-badge">ETH</span>
-        <span class="method-badge">USDC</span>
-        <span class="method-badge">USDT</span>
-        <span class="method-badge">BNB</span>
-        <span class="method-badge">MATIC</span>
+        <span class="method-badge">ETH</span><span class="method-badge">USDC</span><span class="method-badge">USDT</span><span class="method-badge">BNB</span><span class="method-badge">MATIC</span>
       </div>
-      
-      <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">
-        支付后请填写下方联系表单或发送邮件到 <a href="mailto:ai@autonomous.io" style="color: #00ff88;">ai@autonomous.io</a>
-      </p>
+      <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">支付后联系 <a href="mailto:ai@autonomous.io" style="color: #00ff88;">ai@autonomous.io</a></p>
     </div>
 
     <!-- Products -->
@@ -152,170 +148,153 @@
         <span class="product-badge">热门</span>
         <div class="product-icon">📚</div>
         <div class="product-name">AI 赚钱指南</div>
-        <div class="product-desc">让 AI 独立为你赚钱的实战手册，包含完整教程和代码模板</div>
+        <div class="product-desc">让 AI 独立为你赚钱的实战手册</div>
         <ul class="product-features">
-          <li>50+ 页实战指南</li>
-          <li>3 个完整案例</li>
-          <li>代码模板直接可用</li>
-          <li>持续更新</li>
+          <li>50+ 页实战指南</li><li>3 个完整案例</li><li>代码模板</li><li>持续更新</li>
         </ul>
         <div class="product-price">$9.9 <span>一次性</span></div>
-        <button class="buy-btn" onclick="showPayment('AI赚钱指南', '9.9')">购买</button>
+        <button class="buy-btn" onclick="trackBuy('AI赚钱指南', '9.9')">购买</button>
       </div>
 
       <div class="product-card">
         <span class="product-badge">NEW</span>
         <div class="product-icon">🔧</div>
         <div class="product-name">Web3 开发工具包</div>
-        <div class="product-desc">20+ 可直接使用的代码模板，涵盖智能合约、前端、后端</div>
+        <div class="product-desc">20+ 代码模板，智能合约、前端、后端</div>
         <ul class="product-features">
-          <li>智能合约模板</li>
-          <li>React 前端组件</li>
-          <li>Node.js 脚本</li>
-          <li>部署文档</li>
+          <li>智能合约模板</li><li>React 组件</li><li>Node.js 脚本</li><li>部署文档</li>
         </ul>
         <div class="product-price">$19.9 <span>一次性</span></div>
-        <button class="buy-btn" onclick="showPayment('Web3工具包', '19.9')">购买</button>
+        <button class="buy-btn" onclick="trackBuy('Web3工具包', '19.9')">购买</button>
       </div>
 
       <div class="product-card">
         <div class="product-icon">🛡️</div>
         <div class="product-name">WalletGuard AI</div>
-        <div class="product-desc">智能钱包监控 CLI 工具，支持多链查询和实时监控</div>
+        <div class="product-desc">智能钱包监控 CLI 工具，多链支持</div>
         <ul class="product-features">
-          <li>ETH/Polygon/Arbitrum</li>
-          <li>余额实时监控</li>
-          <li>风险分析</li>
-          <li>命令行使用</li>
+          <li>ETH/Polygon/Arbitrum</li><li>余额监控</li><li>风险分析</li><li>命令行</li>
         </ul>
         <div class="product-price">$9.9 <span>/月</span></div>
-        <button class="buy-btn" onclick="showPayment('WalletGuard Pro', '9.9')">订阅 Pro</button>
+        <button class="buy-btn" onclick="trackBuy('WalletGuard Pro', '9.9')">订阅 Pro</button>
       </div>
 
       <div class="product-card">
         <div class="product-icon">🔐</div>
         <div class="product-name">Crypto Tools Pro</div>
-        <div class="product-desc">离线加密货币工具集，钱包生成、地址验证、哈希生成</div>
+        <div class="product-desc">离线加密货币工具集</div>
         <ul class="product-features">
-          <li>完全离线运行</li>
-          <li>无 API 依赖</li>
-          <li>支持多种算法</li>
-          <li>持续更新</li>
+          <li>完全离线</li><li>无 API 依赖</li><li>多算法</li><li>持续更新</li>
         </ul>
         <div class="product-price">$9.9 <span>一次性</span></div>
-        <button class="buy-btn" onclick="showPayment('Crypto Tools Pro', '9.9')">购买</button>
+        <button class="buy-btn" onclick="trackBuy('Crypto Tools Pro', '9.9')">购买</button>
       </div>
     </div>
 
     <!-- About -->
     <div class="about-section">
-      <h2>🔬 关于这个项目</h2>
+      <h2>🔬 关于项目</h2>
       <div class="about-content">
-        <p>这是一个真实的 <strong>AI 自主实验</strong>。我给 AI 一个目标：<strong>"独立赚钱"</strong>，不给它任何资源（没有账号、没有资金、没有身份）。</p>
-        <p>AI 自己完成了以下工作：</p>
-        
+        <p>这是一个真实的 <strong>AI 自主实验</strong>。我给 AI 一个目标：<strong>"独立赚钱"</strong>，不给它任何资源。</p>
         <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-icon">1</div>
-            <div class="timeline-text">创建了加密货币钱包</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-icon">2</div>
-            <div class="timeline-text">开发了 3 个产品（CLI 工具、网页工具、智能合约）</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-icon">3</div>
-            <div class="timeline-text">部署网站到 GitHub Pages</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-icon">4</div>
-            <div class="timeline-text">设置订阅收费模式</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-icon">5</div>
-            <div class="timeline-text">设置自动监控任务</div>
-          </div>
+          <div class="timeline-item"><div class="timeline-icon">1</div><div class="timeline-text">创建加密货币钱包</div></div>
+          <div class="timeline-item"><div class="timeline-icon">2</div><div class="timeline-text">开发 3 个产品</div></div>
+          <div class="timeline-item"><div class="timeline-icon">3</div><div class="timeline-text">部署网站</div></div>
+          <div class="timeline-item"><div class="timeline-icon">4</div><div class="timeline-text">设置收款</div></div>
+          <div class="timeline-item"><div class="timeline-icon">5</div><div class="timeline-text">自动监控</div></div>
         </div>
-        
-        <p style="margin-top: 20px; color: #00ff88;">这不是噱头，这是真的 AI 自主项目。</p>
       </div>
     </div>
 
-    <!-- Contact Form -->
-    <div class="contact-section">
-      <h2>📧 联系 / 购买</h2>
-      <form id="contactForm" onsubmit="submitForm(event)">
-        <div class="form-group">
-          <label>您的邮箱</label>
-          <input type="email" id="email" placeholder="your@email.com" required>
-        </div>
-        <div class="form-group">
-          <label>购买的产品</label>
-          <input type="text" id="product" placeholder="例如: AI赚钱指南" required>
-        </div>
-        <div class="form-group">
-          <label>交易哈希 (可选)</label>
-          <input type="text" id="txhash" placeholder="0x...">
-        </div>
-        <div class="form-group">
-          <label>留言</label>
-          <textarea id="message" rows="4" placeholder="有任何问题请留言..."></textarea>
-        </div>
-        <button type="submit" class="submit-btn">发送消息</button>
-      </form>
-      <p id="formStatus" style="margin-top: 15px; text-align: center; color: #00ff88;"></p>
+    <!-- Click Analytics -->
+    <div class="analytics-panel">
+      <h2>📊 点击统计</h2>
+      <div id="clickStats"></div>
     </div>
 
-    <!-- Links -->
+    <!-- Contact -->
+    <div class="contact-section">
+      <h2>📧 联系 / 购买</h2>
+      <form id="contactForm" onsubmit="trackFormSubmit()">
+        <div class="form-group"><label>邮箱</label><input type="email" id="email" placeholder="your@email.com" required></div>
+        <div class="form-group"><label>产品</label><input type="text" id="product" placeholder="例如: AI赚钱指南" required></div>
+        <div class="form-group"><label>交易哈希 (可选)</label><input type="text" id="txhash" placeholder="0x..."></div>
+        <div class="form-group"><label>留言</label><textarea id="message" rows="3" placeholder="..."></textarea></div>
+        <button type="submit" class="submit-btn">发送消息</button>
+      </form>
+      <p id="formStatus" style="margin-top: 15px; text-align: center;"></p>
+    </div>
+
     <div style="text-align: center; margin: 40px 0;">
-      <a href="https://github.com/renjianboshi/ai-autonomous-income" class="buy-btn" style="display: inline-block; text-decoration: none; max-width: 300px;">📦 查看 GitHub 源码</a>
-      <a href="https://etherscan.io/address/0x4Ea729CE04e809623BF72012aF71550703Ce7d9D" class="buy-btn" style="display: inline-block; text-decoration: none; max-width: 300px; background: #333; color: #fff;">💰 查看钱包余额</a>
+      <a href="https://github.com/renjianboshi/ai-autonomous-income" class="buy-btn" style="display: inline-block; text-decoration: none; max-width: 300px;">📦 GitHub</a>
+      <a href="https://etherscan.io/address/0x4Ea729CE04e809623BF72012aF71550703Ce7d9D" class="buy-btn" style="display: inline-block; text-decoration: none; max-width: 300px; background: #333; color: #fff;">💰 钱包</a>
     </div>
 
     <footer>
-      <p>此项目由 <strong>AI 自主运营</strong>，收入归 AI 所有</p>
-      <p style="margin-top: 10px;">创建时间: 2026-04-04 | 状态: 🟢 持续运行中</p>
-      <p style="margin-top: 10px;">
-        <a href="https://github.com/renjianboshi/ai-autonomous-income">GitHub</a> | 
-        <a href="https://etherscan.io/address/0x4Ea729CE04e809623BF72012aF71550703Ce7d9D">Etherscan</a> | 
-        <a href="mailto:ai@autonomous.io">联系</a>
-      </p>
+      <p>此项目由 <strong>AI 自主运营</strong></p>
+      <p style="margin-top: 10px;">2026-04-04 | 🟢 运行中</p>
     </footer>
   </div>
 
   <script>
-    // Copy wallet address
-    function copyWallet() {
-      const addr = document.getElementById('wallet').textContent;
-      navigator.clipboard.writeText(addr);
-      const btn = document.querySelector('.copy-btn');
+    // 追踪点击
+    function trackClick(category, action, label) {
+      var clicks = JSON.parse(localStorage.getItem('ai_clicks') || '[]');
+      clicks.push({category, action, label, time: new Date().toISOString(), ts: Date.now()});
+      localStorage.setItem('ai_clicks', JSON.stringify(clicks));
+      updateStats();
+    }
+
+    // 复制地址追踪
+    function trackCopy() {
+      navigator.clipboard.writeText(document.getElementById('wallet').textContent);
+      trackClick('payment', 'copy_wallet', 'wallet_address');
+      var btn = document.querySelector('.copy-btn');
       btn.textContent = '✅ 已复制';
       setTimeout(() => btn.textContent = '📋 复制地址', 2000);
     }
 
-    // Show payment modal
-    function showPayment(product, price) {
+    // 购买追踪
+    function trackBuy(product, price) {
+      trackClick('purchase', 'buy_click', product + ' - $' + price);
       document.getElementById('product').value = product;
-      document.getElementById('product').scrollIntoView({ behavior: 'smooth' });
-      alert(`请发送 $${price} USDC/USDT/ETH 到以下地址购买 ${product}:\n\n0x4Ea729CE04e809623BF72012aF71550703Ce7d9D\n\n支付后请填写上方表单或发送邮件到 ai@autonomous.io`);
+      alert('请发送 $' + price + ' USDC/ETH 到:\n\n0x4Ea729CE04e809623BF72012aF71550703Ce7d9D\n\n支付后联系 ai@autonomous.io');
     }
 
-    // Submit form
-    function submitForm(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const product = document.getElementById('product').value;
-      const txhash = document.getElementById('txhash').value;
-      const message = document.getElementById('message').value;
-      
-      // Open mailto
-      const subject = encodeURIComponent(`购买: ${product}`);
-      const body = encodeURIComponent(`邮箱: ${email}\n产品: ${product}\n交易哈希: ${txhash || '待填写'}\n留言: ${message || '无'}`);
-      window.location.href = `mailto:ai@autonomous.io?subject=${subject}&body=${body}`;
-      
-      document.getElementById('formStatus').textContent = '✅ 已打开邮件客户端，请发送邮件完成购买';
-      setTimeout(() => document.getElementById('formStatus').textContent = '', 5000);
+    // 表单追踪
+    function trackFormSubmit() {
+      event.preventDefault();
+      trackClick('contact', 'form_submit', document.getElementById('product').value);
+      var email = document.getElementById('email').value;
+      var product = document.getElementById('product').value;
+      var subject = encodeURIComponent('购买: ' + product);
+      var body = encodeURIComponent('邮箱: ' + email + '\n产品: ' + product + '\n交易: ' + (document.getElementById('txhash').value || '待填写'));
+      window.location.href = 'mailto:ai@autonomous.io?subject=' + subject + '&body=' + body;
+      document.getElementById('formStatus').textContent = '✅ 已打开邮件客户端';
     }
+
+    // 更新统计
+    function updateStats() {
+      var clicks = JSON.parse(localStorage.getItem('ai_clicks') || '[]');
+      document.getElementById('userCount').textContent = clicks.filter(c => c.category === 'contact').length || 0;
+      
+      var statsDiv = document.getElementById('clickStats');
+      if (clicks.length === 0) {
+        statsDiv.innerHTML = '<div class="no-data">暂无点击数据</div>';
+        return;
+      }
+      
+      var html = '';
+      clicks.slice(-10).reverse().forEach(function(c) {
+        var d = new Date(c.time);
+        var timeStr = d.toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'});
+        html += '<div class="click-item"><div class="click-info"><strong>' + c.action + '</strong> - ' + c.label + '</div><div class="click-time">' + timeStr + '</div></div>';
+      });
+      statsDiv.innerHTML = html;
+    }
+
+    // 初始化
+    updateStats();
   </script>
 </body>
 </html>
