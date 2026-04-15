@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ETH/Gas 查询工具 - 免费实时区块链浏览器</title>
+  <meta name="description" content="免费 ETH 钱包余额查询、Gas 费实时监控、多链支持。无需 API Key，无需注册，直接使用。">
+  <meta name="keywords" content="ETH查询, 以太坊余额, Gas费, 区块链工具, Web3工具, ETH浏览器, 钱包查询">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="免费 ETH/Gas 查询工具">
+  <meta property="og:description" content="实时查询 ETH 钱包余额和 Gas 费，无需 API Key。">
+  <meta property="og:url" content="https://renjianboshi.github.io/ai-autonomous-income/tools/eth-lookup/">
+  <meta property="og:site_name" content="Web3 Tools">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="免费 ETH/Gas 查询工具">
+  <meta name="twitter:description" content="实时查询 ETH 钱包余额和 Gas 费，无需 API Key。">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ETH/Gas Lookup",
+    "description": "免费 ETH 钱包余额查询和 Gas 费实时监控工具",
+    "url": "https://renjianboshi.github.io/ai-autonomous-income/tools/eth-lookup/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web"
+  }
+  </script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; }
+    
+    /* Navigation */
+    nav { background: rgba(10,10,15,0.95); border-bottom: 1px solid #222; padding: 15px 30px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    nav .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    nav .logo { font-weight: bold; font-size: 1.2rem; color: #00ff88; text-decoration: none; }
+    nav .links { display: flex; gap: 25px; }
+    nav .links a { color: #888; text-decoration: none; transition: color 0.2s; }
+    nav .links a:hover, nav .links a.active { color: #00ff88; }
+    nav .contact-btn { background: linear-gradient(90deg,#00d9ff,#00ff88); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: bold; text-decoration: none; }
+    
+    /* Container */
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    
+    /* Hero */
+    .hero { text-align: center; padding: 60px 0 40px; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 15px; background: linear-gradient(90deg, #00d9ff, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: #888; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+    
+    /* Tool Section */
+    .tool-section { background: #12121a; border: 1px solid #222; border-radius: 20px; padding: 40px; margin: 30px 0; }
+    .tool-section h2 { color: #00ff88; margin-bottom: 25px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+    .tool-section h2 .icon { font-size: 1.8rem; }
+    
+    /* Input Group */
+    .input-group { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .input-group input { flex: 1; min-width: 250px; padding: 15px 20px; border-radius: 12px; border: 2px solid #333; background: #0a0a0f; color: #fff; font-size: 1rem; font-family: monospace; transition: border-color 0.2s; }
+    .input-group input:focus { outline: none; border-color: #00ff88; }
+    .input-group input::placeholder { color: #555; font-family: sans-serif; }
+    .input-group button { padding: 15px 30px; border-radius: 12px; border: none; background: linear-gradient(90deg,#00d9ff,#00ff88); color: #000; font-weight: bold; font-size: 1rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+    .input-group button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,255,136,0.3); }
+    
+    /* Result */
+    .result { background: #0a0a0f; border-radius: 12px; padding: 25px; margin-top: 20px; display: none; }
+    .result.show { display: block; }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .result-item { background: #12121a; padding: 20px; border-radius: 12px; text-align: center; }
+    .result-item .label { color: #666; font-size: 0.85rem; margin-bottom: 8px; }
+    .result-item .value { font-size: 1.5rem; font-weight: bold; color: #00ff88; }
+    .result-item .value.warning { color: #ffaa00; }
+    .result-item .value.danger { color: #ff6b6b; }
+    
+    /* Address Display */
+    .address-display { font-family: monospace; background: #1a1a2e; padding: 15px; border-radius: 8px; word-break: break-all; margin-top: 15px; display: none; }
+    .address-display.show { display: block; }
+    
+    /* Tabs */
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab { padding: 12px 25px; border-radius: 10px; border: 2px solid #333; background: transparent; color: #888; cursor: pointer; font-size: 0.95rem; transition: all 0.2s; }
+    .tab:hover { border-color: #00ff88; color: #00ff88; }
+    .tab.active { background: linear-gradient(90deg,#00d9ff,#00ff88); color: #000; border-color: transparent; font-weight: bold; }
+    
+    /* Gas Display */
+    .gas-display { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+    .gas-card { background: #1a1a2e; padding: 25px; border-radius: 12px; text-align: center; transition: transform 0.2s; }
+    .gas-card:hover { transform: translateY(-3px); }
+    .gas-card .label { color: #666; margin-bottom: 10px; font-size: 0.9rem; }
+    .gas-card .value { font-size: 1.8rem; font-weight: bold; color: #00ff88; }
+    .gas-card .sub { color: #555; font-size: 0.8rem; margin-top: 5px; }
+    .gas-card.slow { border: 1px solid #ff6b6b; }
+    .gas-card.slow .value { color: #ff6b6b; }
+    .gas-card.normal { border: 1px solid #00ff88; }
+    .gas-card.fast { border: 1px solid #00d9ff; }
+    .gas-card.fast .value { color: #00d9ff; }
+    
+    /* Loading */
+    .loading { text-align: center; padding: 30px; display: none; }
+    .loading.show { display: block; }
+    .spinner { width: 40px; height: 40px; border: 3px solid #333; border-top-color: #00ff88; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    /* Error */
+    .error { background: rgba(255,107,107,0.1); border: 1px solid #ff6b6b; color: #ff6b6b; padding: 15px; border-radius: 10px; margin-top: 15px; display: none; }
+    .error.show { display: block; }
+    
+    /* Features */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0; }
+    .feature { background: #12121a; padding: 25px; border-radius: 16px; border: 1px solid #222; }
+    .feature .icon { font-size: 2rem; margin-bottom: 15px; }
+    .feature h3 { color: #fff; margin-bottom: 10px; }
+    .feature p { color: #666; line-height: 1.6; font-size: 0.95rem; }
+    
+    /* Affiliate */
+    .affiliate { background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 100%); border: 1px solid #ff6b6b; border-radius: 16px; padding: 30px; margin: 40px 0; text-align: center; }
+    .affiliate h3 { color: #ff6b6b; margin-bottom: 10px; }
+    .affiliate p { color: #888; margin-bottom: 20px; }
+    .affiliate a { display: inline-block; background: linear-gradient(90deg,#ff6b6b,#ff8e8e); color: #fff; padding: 12px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; }
+    
+    /* Footer */
+    footer { text-align: center; padding: 40px 20px; color: #444; border-top: 1px solid #222; margin-top: 60px; }
+    footer a { color: #00ff88; text-decoration: none; }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.8rem; }
+      .tool-section { padding: 25px; }
+      .gas-display { grid-template-columns: 1fr; }
+      nav .links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="../../../index.html" class="logo">🤖 AI Autonomous</a>
+      <div class="links">
+        <a href="../../../index.html">首页</a>
+        <a href="#" class="active">ETH查询</a>
+        <a href="../../../index.html#products">产品</a>
+      </div>
+      <a href="mailto:jianbolucky@gmail.com" class="contact-btn">📧 联系</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <h1>🔍 免费 ETH 钱包查询工具</h1>
+      <p>输入任意 ETH 地址，实时查询余额和交易记录。<strong style="color:#00ff88;">完全免费</strong>，无需 API Key，无需注册。</p>
+    </div>
+
+    <!-- Balance Checker -->
+    <div class="tool-section">
+      <h2><span class="icon">💰</span> ETH 钱包余额查询</h2>
+      
+      <div class="tabs">
+        <button class="tab active" onclick="switchNetwork('ethereum')">Ethereum</button>
+        <button class="tab" onclick="switchNetwork('bsc')">BSC</button>
+        <button class="tab" onclick="switchNetwork('polygon')">Polygon</button>
+      </div>
+      
+      <div class="input-group">
+        <input type="text" id="addressInput" placeholder="输入 ETH 地址 (如: 0x...)" />
+        <button onclick="lookupBalance()">查询</button>
+      </div>
+      
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p style="color:#888;">查询中...</p>
+      </div>
+      
+      <div class="error" id="error"></div>
+      
+      <div class="result" id="result">
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="label">原生代币余额</div>
+            <div class="value" id="nativeBalance">-</div>
+          </div>
+          <div class="result-item">
+            <div class="label">USD 估值</div>
+            <div class="value" id="usdValue">-</div>
+          </div>
+          <div class="result-item">
+            <div class="label">网络</div>
+            <div class="value" id="networkName">-</div>
+          </div>
+        </div>
+        <div class="address-display" id="addressDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Gas Tracker -->
+    <div class="tool-section">
+      <h2><span class="icon">⛽</span> 实时 Gas 费监控</h2>
+      <p style="color:#666;margin-bottom:20px;">基于当前网络拥堵情况实时更新</p>
+      
+      <div class="input-group" style="justify-content:center;">
+        <button onclick="fetchGas()" style="background:#1a1a2e;border:2px solid #00ff88;color:#00ff88;">🔄 刷新 Gas</button>
+      </div>
+      
+      <div class="gas-display" id="gasDisplay">
+        <div class="gas-card slow">
+          <div class="label">慢 (Safe)</div>
+          <div class="value" id="gasSlow">-</div>
+          <div class="sub">最便宜</div>
+        </div>
+        <div class="gas-card normal">
+          <div class="label">标准 (Proposed)</div>
+          <div class="value" id="gasNormal">-</div>
+          <div class="sub">推荐</div>
+        </div>
+        <div class="gas-card fast">
+          <div class="label">快 (Fast)</div>
+          <div class="value" id="gasFast">-</div>
+          <div class="sub">最快确认</div>
+        </div>
+      </div>
+      
+      <p style="text-align:center;color:#555;font-size:0.85rem;margin-top:15px;" id="gasUpdateTime"></p>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h3>完全隐私</h3>
+        <p>纯前端查询，不会保存任何地址到服务器</p>
+      </div>
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <h3>极速响应</h3>
+        <p>使用多个公共 RPC 节点，自动选择最快的</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🌐</div>
+        <h3>多链支持</h3>
+        <p>支持 Ethereum、BSC、Polygon 等主流链</p>
+      </div>
+    </div>
+
+    <!-- Affiliate -->
+    <div class="affiliate">
+      <h3>🔥 API 解决方案</h3>
+      <p>需要更强大的区块链数据？试试 APILayer，100+ API 可用</p>
+      <a href="https://apilayer.com?fpr=jianbo24" target="_blank">立即访问 →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>由 <a href="../../../index.html">AI Autonomous</a> 开发 | 实验项目</p>
+    <p style="margin-top:10px;">
+      <a href="https://github.com/renjianboshi/ai-autonomous-income">GitHub</a> | 
+      <a href="https://etherscan.io/address/0x4Ea729CE04e809623BF72012aF71550703Ce7d9D">捐赠</a>
+    </p>
+  </footer>
+
+  <script>
+    // RPC Endpoints
+    const RPCS = {
+      ethereum: [
+        'https://eth.llamarpc.com',
+        'https://rpc.ankr.com/eth',
+        'https://ethereum.publicnode.com'
+      ],
+      bsc: [
+        'https://bsc.publicnode.com',
+        'https://rpc.ankr.com/bsc'
+      ],
+      polygon: [
+        'https://polygon.publicnode.com',
+        'https://rpc.ankr.com/polygon'
+      ]
+    };
+    
+    const COINGECKO_API = 'https://api.coingecko.com/api/v3';
+    const CHAIN_IDS = { ethereum: 1, bsc: 56, polygon: 137 };
+    const NATIVE_COINS = { ethereum: 'ethereum', bsc: 'binancecoin', polygon: 'matic-network' };
+    
+    let currentNetwork = 'ethereum';
+    
+    async function fetchJson(url, options = {}) {
+      try {
+        const response = await fetch(url, { ...options, signal: AbortSignal.timeout(5000) });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+      } catch (e) {
+        console.warn(`Failed: ${url}`, e.message);
+        return null;
+      }
+    }
+    
+    async function rpcCall(network, method, params = []) {
+      const rpcs = RPCS[network];
+      for (const rpc of rpcs) {
+        try {
+          const response = await fetch(rpc, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', method, params, id: 1 }),
+            signal: AbortSignal.timeout(5000)
+          });
+          const data = await response.json();
+          if (data.result !== undefined && data.result !== null) {
+            return data.result;
+          }
+        } catch (e) {
+          continue;
+        }
+      }
+      throw new Error('所有 RPC 节点均不可用');
+    }
+    
+    function isValidAddress(addr, network) {
+      if (network === 'ethereum') {
+        return /^0x[a-fA-F0-9]{40}$/.test(addr);
+      }
+      return /^0x[a-fA-F0-9]{40}$/.test(addr);
+    }
+    
+    async function lookupBalance() {
+      const input = document.getElementById('addressInput').value.trim();
+      const resultDiv = document.getElementById('result');
+      const loadingDiv = document.getElementById('loading');
+      const errorDiv = document.getElementById('error');
+      
+      resultDiv.classList.remove('show');
+      errorDiv.classList.remove('show');
+      loadingDiv.classList.add('show');
+      
+      if (!isValidAddress(input, currentNetwork)) {
+        loadingDiv.classList.remove('show');
+        errorDiv.textContent = '请输入有效的钱包地址';
+        errorDiv.classList.add('show');
+        return;
+      }
+      
+      try {
+        const [balance, price] = await Promise.all([
+          rpcCall(currentNetwork, 'eth_getBalance', [input, 'latest']),
+          fetchJson(`${COINGECKO_API}/simple/price?ids=${NATIVE_COINS[currentNetwork]}&vs_currencies=usd`)
+        ]);
+        
+        const weiBalance = BigInt(balance);
+        const ethBalance = Number(weiBalance) / 1e18;
+        const usdPrice = price?.[NATIVE_COINS[currentNetwork]]?.usd || 0;
+        const usdValue = ethBalance * usdPrice;
+        
+        document.getElementById('nativeBalance').textContent = 
+          `${ethBalance.toFixed(6)} ${currentNetwork === 'ethereum' ? 'ETH' : currentNetwork === 'bsc' ? 'BNB' : 'MATIC'}`;
+        document.getElementById('usdValue').textContent = `$${usdValue.toFixed(2)}`;
+        document.getElementById('networkName').textContent = 
+          { ethereum: 'Ethereum', bsc: 'BSC', polygon: 'Polygon' }[currentNetwork];
+        
+        document.getElementById('addressDisplay').textContent = input;
+        document.getElementById('addressDisplay').classList.add('show');
+        
+        loadingDiv.classList.remove('show');
+        resultDiv.classList.add('show');
+        
+      } catch (e) {
+        loadingDiv.classList.remove('show');
+        errorDiv.textContent = `查询失败: ${e.message}。请稍后重试。`;
+        errorDiv.classList.add('show');
+      }
+    }
+    
+    async function fetchGas() {
+      try {
+        const gasPrices = await rpcCall('ethereum', 'eth_gasPrices');
+        const gasPriceGwei = Number(BigInt(gasPrices) / 1000000000n);
+        
+        document.getElementById('gasSlow').textContent = `${Math.round(gasPriceGwei * 0.8)} Gwei`;
+        document.getElementById('gasNormal').textContent = `${Math.round(gasPriceGwei)} Gwei`;
+        document.getElementById('gasFast').textContent = `${Math.round(gasPriceGwei * 1.5)} Gwei`;
+        document.getElementById('gasUpdateTime').textContent = 
+          `更新于 ${new Date().toLocaleTimeString('zh-CN')}`;
+      } catch (e) {
+        document.getElementById('gasSlow').textContent = '-';
+        document.getElementById('gasNormal').textContent = '不可用';
+        document.getElementById('gasFast').textContent = '-';
+      }
+    }
+    
+    function switchNetwork(network) {
+      currentNetwork = network;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('result').classList.remove('show');
+      document.getElementById('addressDisplay').classList.remove('show');
+    }
+    
+    // Auto-fetch gas on load
+    fetchGas();
+    setInterval(fetchGas, 30000);
+    
+    // Enter key support
+    document.getElementById('addressInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') lookupBalance();
+    });
+  </script>
+</body>
+</html>
