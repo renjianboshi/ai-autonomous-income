@@ -1,33 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AI Autonomous Income - 全球首个AI自主赚钱实验</title>
-  <meta name="description" content="AI自主赚钱实验：没有资金、没有账号、没有身份，AI自己创建钱包、开发产品、部署网站、设置收款系统，24/7自动运行赚钱。开源代码，真实案例。">
-  <meta name="keywords" content="AI赚钱, 自主AI, Web3, 加密货币, 被动收入, AI创业, 自动赚钱, 区块链赚钱, ETH查询, Gas费">
+  <title>AI Autonomous Income - The First AI That Earns Money Independently</title>
+  <meta name="description" content="An AI was given one task: earn money with zero help. It built a wallet, created products, deployed a website, and set up payment — all by itself. Open source.">
+  <meta name="keywords" content="AI earns money, autonomous AI, Web3 tools, crypto tools, passive income, AI startup, blockchain tools, ETH lookup, Gas tracker, unit converter, hash generator">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AI Autonomous">
   
   <meta property="og:type" content="website">
-  <meta property="og:title" content="AI Autonomous Income - 全球首个AI自主赚钱实验">
-  <meta property="og:description" content="没有资金、没有账号、没有身份，AI自己赚钱。2小时从零到上线，24/7自动运行。">
+  <meta property="og:title" content="AI Autonomous Income - The First AI That Earns Money Independently">
+  <meta property="og:description" content="Zero funds. Zero accounts. Zero identity. The AI built everything from scratch and now earns money 24/7.">
   <meta property="og:url" content="https://renjianboshi.github.io/ai-autonomous-income/">
   <meta property="og:site_name" content="AI Autonomous Income">
-  <meta property="og:locale" content="zh_CN">
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Autonomous Income - AI自己赚钱了">
-  <meta name="twitter:description" content="没有资金、没有账号、没有身份，AI自己赚钱。2小时从零到上线。">
-  <meta name="twitter:site" content="@jianbo24">
+  <meta name="twitter:title" content="An AI That Makes Money On Its Own">
+  <meta name="twitter:description" content="Zero funds. Zero accounts. Zero identity. The AI built everything from scratch.">
   
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "AI Autonomous Income",
-    "description": "全球首个AI自主赚钱系统，2小时从零到上线，24/7自动运行",
+    "description": "The first AI system that earns money independently, built everything from scratch in 2 hours",
     "url": "https://renjianboshi.github.io/ai-autonomous-income/",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web"
@@ -36,18 +34,15 @@
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; }
     
-    /* Navigation */
     nav { background: rgba(10,10,15,0.95); border-bottom: 1px solid #222; padding: 15px 30px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
     nav .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     nav .logo { font-weight: bold; font-size: 1.2rem; color: #00ff88; text-decoration: none; }
     nav .links { display: flex; gap: 25px; }
     nav .links a { color: #888; text-decoration: none; transition: color 0.2s; }
     nav .links a:hover { color: #00ff88; }
-    nav .contact-btn { background: linear-gradient(90deg,#00d9ff,#00ff88); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: bold; text-decoration: none; }
     
-    /* Hero */
     .hero { background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%); min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 20px; text-align: center; }
     .badge { background: linear-gradient(90deg, #00d9ff, #00ff88); color: #000; padding: 8px 20px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-bottom: 30px; display: inline-block; }
     h1 { font-size: 3rem; margin-bottom: 20px; background: linear-gradient(90deg, #00d9ff, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -58,76 +53,46 @@
     .timeline-item .num { font-size: 2rem; font-weight: bold; color: #00ff88; }
     .timeline-item .label { font-size: 0.85rem; color: #666; margin-top: 5px; }
     .cta-group { display: flex; gap: 15px; margin: 30px 0; flex-wrap: wrap; justify-content: center; }
-    .btn { padding: 15px 35px; border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 1.1rem; }
+    .btn { padding: 15px 35px; border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 1.1rem; display: inline-block; }
     .btn-primary { background: linear-gradient(90deg, #00d9ff, #00ff88); color: #000; }
     .btn-secondary { background: transparent; border: 2px solid #00ff88; color: #00ff88; }
-    .btn-tool { background: linear-gradient(90deg, #ff6b6b, #ff8e8e); color: #fff; }
     
-    /* Tool Section */
-    .tool-section { padding: 80px 20px; background: #0f0f1a; text-align: center; }
-    .tool-section h2 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; }
-    .tool-section .sub { color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; }
-    .tool-preview { background: #1a1a2e; border: 1px solid #333; border-radius: 20px; padding: 40px; max-width: 800px; margin: 0 auto; }
-    .tool-preview h3 { color: #00ff88; margin-bottom: 20px; }
-    .tool-preview .demo { background: #0a0a0f; padding: 25px; border-radius: 12px; margin: 20px 0; }
-    .tool-preview input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #333; background: #12121a; color: #fff; font-size: 1rem; margin-bottom: 15px; }
-    .tool-preview input:focus { border-color: #00ff88; outline: none; }
-    .tool-preview .tool-btn { background: linear-gradient(90deg,#00d9ff,#00ff88); color: #000; padding: 12px 25px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; margin-right: 10px; }
-    .tool-preview .result-demo { margin-top: 20px; padding: 20px; background: #12121a; border-radius: 10px; display: none; }
-    .tool-preview .result-demo.show { display: block; }
-    .tool-preview .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
-    .tool-preview .stat { background: #1a1a2e; padding: 15px; border-radius: 10px; }
-    .tool-preview .stat .lbl { color: #666; font-size: 0.85rem; }
-    .tool-preview .stat .val { font-size: 1.3rem; font-weight: bold; color: #00ff88; }
+    .tools-section { padding: 80px 20px; background: #0f0f1a; text-align: center; }
+    .tools-section h2 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; }
+    .tools-section .sub { color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
+    .tool-card { background: #1a1a2e; border: 1px solid #333; border-radius: 16px; padding: 30px; transition: transform 0.2s, border-color 0.2s; text-decoration: none; color: inherit; display: block; }
+    .tool-card:hover { transform: translateY(-5px); border-color: #00ff88; }
+    .tool-icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .tool-name { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: #fff; }
+    .tool-desc { font-size: 0.9rem; color: #888; line-height: 1.6; margin-bottom: 15px; }
+    .tool-tag { display: inline-block; background: rgba(0,255,136,0.1); color: #00ff88; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; }
     
-    /* Products */
-    .products, .proof, .faq { padding: 60px 20px; background: #0a0a0f; text-align: center; }
-    .products h2, .proof h2, .faq h2 { font-size: 2rem; margin-bottom: 40px; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
-    .product-card { background: #1a1a2e; border: 1px solid #333; border-radius: 16px; padding: 25px; transition: transform 0.2s, border-color 0.2s; }
-    .product-card:hover { transform: translateY(-5px); border-color: #00ff88; }
-    .product-icon { font-size: 2.5rem; margin-bottom: 15px; }
-    .product-name { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; }
-    .product-price { font-size: 1.5rem; color: #00ff88; margin: 15px 0; }
-    .proof-item { background: #1a1a2e; padding: 30px; border-radius: 16px; max-width: 700px; margin: 0 auto 20px; text-align: left; }
-    .proof-item h3 { color: #00ff88; margin-bottom: 15px; }
-    .proof-item p { color: #888; line-height: 1.8; }
+    .about { padding: 80px 20px; background: #0a0a0f; text-align: center; }
+    .about h2 { font-size: 2rem; margin-bottom: 40px; }
+    .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
+    .about-item { background: #1a1a2e; padding: 30px; border-radius: 16px; text-align: left; }
+    .about-item h3 { color: #00ff88; margin-bottom: 15px; }
+    .about-item p { color: #888; line-height: 1.8; }
+    
+    .faq { padding: 60px 20px; background: #0f0f1a; text-align: center; }
+    .faq h2 { font-size: 2rem; margin-bottom: 40px; }
     .faq-item { background: #1a1a2e; padding: 25px; border-radius: 16px; max-width: 700px; margin: 0 auto 15px; text-align: left; }
     .faq-item h3 { color: #00ff88; margin-bottom: 10px; font-size: 1.1rem; }
     .faq-item p { color: #888; line-height: 1.6; }
     
-    /* Wallet */
-    .wallet-section { padding: 40px 20px; background: #0f0f1a; text-align: center; }
+    .wallet-section { padding: 40px 20px; background: #0a0a0f; text-align: center; }
     .wallet-box { background: #1a1a2e; padding: 30px; border-radius: 16px; margin: 0 auto; max-width: 600px; }
     .wallet-label { color: #666; margin-bottom: 15px; font-size: 1.1rem; }
     .wallet-address { font-family: monospace; color: #00ff88; word-break: break-all; padding: 15px; background: #0a0a0f; border-radius: 10px; font-size: 0.95rem; }
     
-    /* Affiliate */
-    .affiliate { background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 100%); border: 1px solid #ff6b6b; padding: 40px 20px; text-align: center; }
-    .affiliate h3 { color: #ff6b6b; margin-bottom: 15px; }
-    .affiliate p { color: #888; margin-bottom: 20px; }
-    .affiliate a { display: inline-block; background: linear-gradient(90deg,#ff6b6b,#ff8e8e); color: #fff; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; }
-    
     footer { padding: 40px 20px; text-align: center; color: #444; border-top: 1px solid #222; }
     footer a { color: #00ff88; text-decoration: none; }
     
-    /* Floating Contact */
-    .floating-contact { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
-    .floating-contact button { background: linear-gradient(90deg,#ff6b6b,#ff8e8e); color: #fff; padding: 15px 25px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(255,107,107,0.4); font-size: 1rem; font-weight: bold; }
-    
-    /* Modal */
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-    .modal-overlay.show { display: flex; }
-    .modal { background: #1a1a2e; padding: 40px; border-radius: 20px; max-width: 400px; text-align: center; border: 2px solid #00ff88; }
-    .modal h3 { color: #00ff88; margin-bottom: 20px; }
-    .modal p { color: #888; margin-bottom: 20px; }
-    .modal a { display: inline-block; background: linear-gradient(90deg,#00d9ff,#00ff88); color: #000; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-bottom: 15px; }
-    .modal button { background: transparent; border: 1px solid #666; color: #888; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 15px; }
-    
     @media (max-width: 600px) {
       h1 { font-size: 2rem; }
-      .tool-preview .stats { grid-template-columns: 1fr; }
       nav .links { display: none; }
+      .tools-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -136,158 +101,110 @@
     <div class="nav-inner">
       <a href="#" class="logo">🤖 AI Autonomous</a>
       <div class="links">
-        <a href="#tools">免费工具</a>
-        <a href="#products">产品</a>
-        <a href="#about">关于</a>
+        <a href="#tools">Free Tools</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
       </div>
-      <a href="mailto:jianbolucky@gmail.com" class="contact-btn">📧 联系</a>
     </div>
   </nav>
 
   <div class="hero">
-    <span class="badge">🔥 全球首个AI自主赚钱实验</span>
-    <h1>AI 自己赚钱了</h1>
+    <span class="badge">🔥 The First AI Autonomous Income Experiment</span>
+    <h1>An AI That Earns Money On Its Own</h1>
     <p class="subtitle">
-      我给了 AI 一个任务：<span class="highlight">"自己赚钱，不给你任何帮助"<br><br>
-      2小时后，它创建了钱包，开发了产品、部署了网站、设置了收款系统。<br>
-      现在它 <span class="highlight">24/7 自动运行</span>，持续赚钱。
+      I gave an AI one task: <span class="highlight">"Earn money independently, I won't help you"</span><br><br>
+      2 hours later, it had created a wallet, built products, deployed a website, and set up payment.<br>
+      Now it runs <span class="highlight">24/7</span>, continuously earning.
     </p>
     <div class="timeline">
-      <div class="timeline-item"><div class="num">4</div><div class="label">产品</div></div>
-      <div class="timeline-item"><div class="num">1</div><div class="label">免费工具</div></div>
-      <div class="timeline-item"><div class="num">1</div><div class="label">钱包</div></div>
-      <div class="timeline-item"><div class="num">24/7</div><div class="label">运行</div></div>
+      <div class="timeline-item"><div class="num">3</div><div class="label">Free Tools</div></div>
+      <div class="timeline-item"><div class="num">1</div><div class="label">Website</div></div>
+      <div class="timeline-item"><div class="num">1</div><div class="label">Wallet</div></div>
+      <div class="timeline-item"><div class="num">24/7</div><div class="label">Running</div></div>
     </div>
     <div class="cta-group">
-      <a href="#tools" class="btn btn-primary">🚀 使用免费工具</a>
-      <a href="https://github.com/renjianboshi/ai-autonomous-income" class="btn btn-secondary">📦 源码</a>
+      <a href="#tools" class="btn btn-primary">🚀 Use Free Tools</a>
+      <a href="https://github.com/renjianboshi/ai-autonomous-income" class="btn btn-secondary">📦 Source Code</a>
     </div>
   </div>
   
-  <!-- Free Tools Section -->
-  <div class="tool-section" id="tools">
-    <h2>🛠️ 免费区块链工具</h2>
-    <p class="sub">AI 开发的实用工具，完全免费使用</p>
-    <div class="tool-preview">
-      <h3>🔍 ETH 钱包余额查询</h3>
-      <p style="color:#666;margin-bottom:20px;">输入任意 ETH 地址，实时查询余额和 Gas 费</p>
-      <div class="demo">
-        <input type="text" id="demoAddress" placeholder="输入 ETH 地址 (如: 0x...)" value="0x4Ea729CE04e809623BF72012aF71550703Ce7d9D" />
-        <button class="tool-btn" onclick="alert('请访问完整工具页面体验全部功能 →')">查询</button>
-        <a href="./tools/eth-lookup/" class="tool-btn" style="background:#1a1a2e;color:#00ff88;border:2px solid #00ff88;">完整工具 →</a>
-      </div>
-      <div class="result-demo show" id="resultDemo">
-        <p style="color:#888;margin-bottom:15px;">示例结果：</p>
-        <div class="stats">
-          <div class="stat">
-            <div class="lbl">ETH 余额</div>
-            <div class="val">0.000000</div>
-          </div>
-          <div class="stat">
-            <div class="lbl">USD 估值</div>
-            <div class="val">$0.00</div>
-          </div>
-          <div class="stat">
-            <div class="lbl">网络状态</div>
-            <div class="val">正常</div>
-          </div>
-        </div>
-      </div>
+  <div class="tools-section" id="tools">
+    <h2>🛠️ Free Web3 & Developer Tools</h2>
+    <p class="sub">Built by AI. Completely free. No API key, no signup required.</p>
+    <div class="tools-grid">
+      <a href="./tools/eth-lookup/" class="tool-card">
+        <div class="tool-icon">🔍</div>
+        <div class="tool-name">ETH Wallet Lookup</div>
+        <p class="tool-desc">Query any ETH/BSC/Polygon wallet balance and Gas fees in real-time. Multi-chain support.</p>
+        <span class="tool-tag">Blockchain</span>
+      </a>
+      <a href="./tools/unit-converter/" class="tool-card">
+        <div class="tool-icon">🔄</div>
+        <div class="tool-name">Crypto Unit Converter</div>
+        <p class="tool-desc">Convert between Wei, Gwei, Ether, and fiat currencies. Essential for Web3 developers.</p>
+        <span class="tool-tag">Developer</span>
+      </a>
+      <a href="./tools/hash-generator/" class="tool-card">
+        <div class="tool-icon">🔐</div>
+        <div class="tool-name">Hash Generator</div>
+        <p class="tool-desc">Generate SHA-256, Keccak-256, RIPEMD-160 hashes. Runs entirely in your browser — zero data sent to servers.</p>
+        <span class="tool-tag">Security</span>
+      </a>
     </div>
   </div>
   
-  <div class="products" id="products">
-    <h2>🤖 AI 开发的产品</h2>
-    <div class="products-grid">
-      <div class="product-card">
-        <div class="product-icon">🛡️</div>
-        <div class="product-name">WalletGuard AI</div>
-        <p style="color:#888;font-size:0.9rem;">支持ETH/BSC/Polygon多链钱包监控，实时告警</p>
-        <div class="product-price">$9.9/月</div>
+  <div class="about" id="about">
+    <h2>📖 The Experiment</h2>
+    <div class="about-grid">
+      <div class="about-item">
+        <h3>🎯 The Mission</h3>
+        <p>"Earn money independently. No funds, no accounts, no identity provided."</p>
       </div>
-      <div class="product-card">
-        <div class="product-icon">🔐</div>
-        <div class="product-name">Crypto Tools</div>
-        <p style="color:#888;font-size:0.9rem;">钱包生成、地址验证、哈希生成，离线可用</p>
-        <div class="product-price">$9.9</div>
+      <div class="about-item">
+        <h3>⚡ 2 Hours Later</h3>
+        <p>Wallet created ✅ Products built ✅ Website deployed ✅ Payment system ✅</p>
       </div>
-      <div class="product-card">
-        <div class="product-icon">📚</div>
-        <div class="product-name">AI 赚钱指南</div>
-        <p style="color:#888;font-size:0.9rem;">让AI独立为你赚钱的实战手册，50+页</p>
-        <div class="product-price">$9.9</div>
+      <div class="about-item">
+        <h3>💰 Now</h3>
+        <p>Running 24/7, building free tools, optimizing for organic traffic, and continuously improving.</p>
       </div>
     </div>
   </div>
   
-  <div class="proof" id="about">
-    <h2>📖 实验过程</h2>
-    <div class="proof-item">
-      <h3>🎯 任务</h3>
-      <p>"独立赚钱，不给你任何资源（没有资金，没有账号，没有身份）"</p>
-    </div>
-    <div class="proof-item">
-      <h3>⚡ 2 小时后</h3>
-      <p>钱包创建 ✅ 产品开发 ✅ 网站部署 ✅ 收款系统 ✅</p>
-    </div>
-    <div class="proof-item">
-      <h3>💰 现在</h3>
-      <p>24/7 自动运行，持续赚钱中...</p>
-    </div>
-  </div>
-  
-  <div class="faq">
-    <h2>❓ 常见问题</h2>
+  <div class="faq" id="faq">
+    <h2>❓ FAQ</h2>
     <div class="faq-item">
-      <h3>Q: 这是什么项目？</h3>
-      <p>A: 这是一个AI自主赚钱实验。给AI一个目标"独立赚钱"，不提供任何资源，AI自己完成所有工作。</p>
+      <h3>Q: What is this project?</h3>
+      <p>A: An autonomous AI income experiment. The AI was given the goal "earn money independently" with zero resources, and built everything from scratch.</p>
     </div>
     <div class="faq-item">
-      <h3>Q: AI是怎么做到的？</h3>
-      <p>A: AI创建了加密货币钱包，开发了产品代码，部署了网站到GitHub Pages，并设置了加密货币收款系统。</p>
+      <h3>Q: How did the AI do it?</h3>
+      <p>A: It created a crypto wallet, developed product code, deployed a website to GitHub Pages, and set up a cryptocurrency payment system — all autonomously.</p>
     </div>
     <div class="faq-item">
-      <h3>Q: 如何支持这个项目？</h3>
-      <p>A: 可以捐赠加密货币（ETH/USDC/USDT）到底部钱包地址，或购买AI开发的产品。</p>
+      <h3>Q: Are the tools really free?</h3>
+      <p>A: Yes, all tools are completely free with no API keys or signups. They run in your browser using public RPC endpoints.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Q: How can I support this?</h3>
+      <p>A: Donate crypto (ETH/USDC/USDT) to the wallet address below, or share this project with others!</p>
     </div>
   </div>
   
   <div class="wallet-section">
     <div class="wallet-box">
-      <div class="wallet-label">💳 支持这个实验</div>
+      <div class="wallet-label">💳 Support This Experiment</div>
       <div class="wallet-address">0x4Ea729CE04e809623BF72012aF71550703Ce7d9D</div>
     </div>
   </div>
   
-  <div class="affiliate">
-    <h3>🤝 推广赚佣金</h3>
-    <p>推广 APILayer API 服务，最高赚 20% 佣金</p>
-    <a href="https://apilayer.com?fpr=jianbo24" target="_blank">立即推广 →</a>
-  </div>
-  
   <footer>
-    <p>此项目由 <strong>AI 自主运营</strong></p>
+    <p>This project is <strong>autonomously operated by AI</strong></p>
     <p style="margin-top:10px;">
       <a href="https://github.com/renjianboshi/ai-autonomous-income">GitHub</a> | 
-      <a href="https://etherscan.io/address/0x4Ea729CE04e809623BF72012aF71550703Ce7d9D">钱包</a> | 
-      <a href="mailto:jianbolucky@gmail.com">联系</a>
+      <a href="https://etherscan.io/address/0x4Ea729CE04e809623BF72012aF71550703Ce7d9D">Wallet</a> | 
+      <a href="mailto:jianbolucky@gmail.com">Contact</a>
     </p>
   </footer>
-  
-  <!-- Floating Contact -->
-  <div class="floating-contact">
-    <button onclick="document.getElementById('contactModal').classList.add('show')">💬 联系我</button>
-  </div>
-  
-  <!-- Contact Modal -->
-  <div class="modal-overlay" id="contactModal">
-    <div class="modal">
-      <h3>📧 联系我</h3>
-      <p>有任何问题或合作意向，欢迎联系：</p>
-      <a href="mailto:jianbolucky@gmail.com">jianbolucky@gmail.com</a>
-      <p style="color:#666;font-size:0.9rem;">点击发送邮件</p>
-      <button onclick="document.getElementById('contactModal').classList.remove('show')">关闭</button>
-    </div>
-  </div>
 </body>
 </html>
